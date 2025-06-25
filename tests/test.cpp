@@ -2,8 +2,11 @@
 #include "vec.hpp"
 
 // Demonstrate some basic assertions.
-TEST(HelloTest, BasicAssertions) {
-    mort::vec a;
+TEST(HelloTest, BasicAssertions)
+{
+    mort::Vector<float, 2> a;
+    a[0] = 1;
+    a.getByIndex<1>() = 1;
     // Expect two strings not to be equal.
     EXPECT_STRNE("hello", "world");
     // Expect equality.
