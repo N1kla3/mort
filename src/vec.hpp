@@ -14,8 +14,17 @@ namespace mort
 
     public:
         using type = std::decay_t<T>;
+        using own_type = BaseVector<type, N>;
 
-        BaseVector() = default;
+        BaseVector()
+        {
+            m_Data.fill(0);
+        };
+        BaseVector(const BaseVector& vec) = default;
+        BaseVector(BaseVector&& vec) = default;
+        BaseVector& operator=(const BaseVector& vec) = default;
+        BaseVector& operator=(BaseVector&& vec) = default;
+        ~BaseVector() = default;
 
         type operator[](size_t index) const
         {
@@ -27,36 +36,35 @@ namespace mort
         }
 
         template<size_t Index>
-            requires(Index < N && Index > 0)
+            requires(Index < N && Index >= 0)
         type getByIndex() const
         {
             return m_Data[Index];
         }
         template<size_t Index>
-            requires(Index < N && Index > 0)
+            requires(Index < N && Index >= 0)
         type& getByIndex()
         {
             return m_Data[Index];
         }
-    };
 
-    template<number T, size_t N>
-    class Vector : public BaseVector<T, N>
-    {
-    };
-
-    template<number T>
-    class Vector<T, 2> : public BaseVector<T, 2>
-    {
-    };
-
-    template<number T>
-    class Vector<T, 3> : public BaseVector<T, 3>
-    {
-    };
-
-    template<number T>
-    class Vector<T, 4> : public BaseVector<T, 4>
-    {
+        friend BaseVector<T, N> operator+(const BaseVector<T, N>& lhs, const BaseVector<T, N>& rhs)
+        {
+            BaseVector<T, N> vec;
+            for (size_t idx = 0; idx < N; idx++)
+            {
+                vec[idx] = lhs[idx] + rhs[idx];
+            }
+            return vec;
+        }
+        friend BaseVector<T, N> operator-(const BaseVector<T, N>& lhs, const BaseVector<T, N>& rhs)
+        {
+            BaseVector<T, N> vec;
+            for (size_t idx = 0; idx < N; idx++)
+            {
+                vec[idx] = lhs[idx] - rhs[idx];
+            }
+            return vec;
+        }
     };
 } // namespace mort

@@ -9,6 +9,8 @@ include_directories(${CMAKE_SOURCE_DIR}/src)
 
 add_library(mort INTERFACE
         src/vec.hpp
+        src/vec2.hpp
+        src/vec3.hpp
 )
 set_target_properties(mort PROPERTIES LINKER_LANGUAGE CXX)
 
