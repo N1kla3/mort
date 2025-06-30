@@ -59,15 +59,25 @@ namespace mort
             return xyz[Index];
         }
 
-        T len() const
+        type len() const
         {
             return std::sqrt((x * x) + (y * y) + (z * z));
         }
 
-        T lenSqr() const
+        type lenSqr() const
         {
             return (x * x) + (y * y) + (z * z);
         }
+
+        void normalize()
+        {
+            T l = len();
+            x /= l;
+            y /= l;
+            z /= l;
+        }
+
+        // OPERATORS //
 
         friend Vector3<T> operator+(const Vector3<T>& lhs, const Vector3<T>& rhs)
         {
@@ -87,5 +97,7 @@ namespace mort
             }
             return vec;
         }
+
+        // STATIC //
     };
 } // namespace mort
