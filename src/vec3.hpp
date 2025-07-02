@@ -26,7 +26,7 @@ namespace mort
         using type = std::decay_t<T>;
 
         Vector3()
-            : xyz(0) {};
+            : xyz{0} {};
         Vector3(T x, T y, T z)
         {
             xyz = {x, y, z};

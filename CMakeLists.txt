@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.31)
 project(mort)
 
 set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 
 set(MORT_DEV)
 
