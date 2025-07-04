@@ -1,4 +1,5 @@
 #include <cstdint>
+#include "core.h"
 #include "gtest/gtest.h"
 #include "vec3.hpp"
 
@@ -27,8 +28,20 @@ TEST(vector3, basic)
 
 TEST(vector3, normalization)
 {
-    vec tonorm(5.f, 9.f, 11.f);
+    vec tonorm(5.5f, 9.3f, 11.7f);
     tonorm.normalize();
-    EXPECT_EQ(tonorm.len(), 1.f);
-    EXPECT_EQ(tonorm.lenSqr(), 1.f);
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.f));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.f));
+
+    // big number
+    tonorm = vec(13424.34f, 54034.4545f, 910213.589f);
+    tonorm.normalize();
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.f));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.f));
+
+    // small number
+    tonorm = vec(0.00134244f, 0.0005445f, 0.00009109f);
+    tonorm.normalize();
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.f));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.f));
 }

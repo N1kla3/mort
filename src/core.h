@@ -3,6 +3,7 @@
 #include <cmath>
 #include <concepts>
 #include <limits>
+#include <stdint.h>
 
 namespace mort
 {
@@ -20,13 +21,13 @@ namespace mort
                                      FloatingPoint rhs,
                                      FloatingPoint tolerance = std::numeric_limits<FloatingPoint>::epsilon())
     {
-        FloatingPoint diff = std::fabs(lhs, rhs);
+        FloatingPoint diff = std::fabs(lhs - rhs);
         return ((diff <= tolerance) || (diff < std::fmax(std::fabs(lhs), std::fabs(rhs)) * tolerance));
     }
 
     template<typename FloatingPoint>
         requires std::floating_point<FloatingPoint>
-    [[nodiscard]] bool isWithPrecision(FloatingPoint lhs, FloatingPoint rhs, uint8_t stepSize = 1u)
+    [[nodiscard]] bool isEqualWithPrecision(FloatingPoint lhs, FloatingPoint rhs, uint8_t stepSize = 1u)
     {
         FloatingPoint min_lhs =
                 lhs - ((lhs - std::nextafter(lhs, std::numeric_limits<FloatingPoint>::lowest())) * stepSize);
