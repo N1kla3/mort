@@ -9,17 +9,17 @@ namespace mort
 {
     template<typename FloatingPoint>
         requires std::floating_point<FloatingPoint>
-    [[nodiscard]] bool isNearlyZero(FloatingPoint numb,
-                                    FloatingPoint tolerance = std::numeric_limits<FloatingPoint>::epsilon())
+    [[nodiscard]] constexpr bool isNearlyZero(FloatingPoint numb,
+                                              FloatingPoint tolerance = std::numeric_limits<FloatingPoint>::epsilon())
     {
         return (std::fabs(numb) <= tolerance);
     }
 
     template<typename FloatingPoint>
         requires std::floating_point<FloatingPoint>
-    [[nodiscard]] bool isNearlyEqual(FloatingPoint lhs,
-                                     FloatingPoint rhs,
-                                     FloatingPoint tolerance = std::numeric_limits<FloatingPoint>::epsilon())
+    [[nodiscard]] constexpr bool isNearlyEqual(FloatingPoint lhs,
+                                               FloatingPoint rhs,
+                                               FloatingPoint tolerance = std::numeric_limits<FloatingPoint>::epsilon())
     {
         FloatingPoint diff = std::fabs(lhs - rhs);
         return ((diff <= tolerance) || (diff < std::fmax(std::fabs(lhs), std::fabs(rhs)) * tolerance));
@@ -27,7 +27,7 @@ namespace mort
 
     template<typename FloatingPoint>
         requires std::floating_point<FloatingPoint>
-    [[nodiscard]] bool isEqualWithPrecision(FloatingPoint lhs, FloatingPoint rhs, uint8_t stepSize = 1u)
+    [[nodiscard]] constexpr bool isEqualWithPrecision(FloatingPoint lhs, FloatingPoint rhs, uint8_t stepSize = 1u)
     {
         FloatingPoint min_lhs =
                 lhs - ((lhs - std::nextafter(lhs, std::numeric_limits<FloatingPoint>::lowest())) * stepSize);
