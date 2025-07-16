@@ -28,6 +28,105 @@ TEST(vector3, basicf)
     EXPECT_EQ(d, veci(0));
 }
 
+TEST(vector3, basicoperationf)
+{
+    vec a(5.f, 6.f, 9.f);
+    vec b(5.f, 6.f, 9.f);
+
+    // multiplication
+    vec res(25.f, 36.f, 81.f);
+    EXPECT_EQ(a * b, res);
+    vec c = a;
+    c *= b;
+    EXPECT_EQ(c, res);
+
+    // division
+    EXPECT_EQ(res / b, a);
+    c = res;
+    c /= b;
+    EXPECT_EQ(c, a);
+
+    // addition
+    res = vec(10.f, 12.f, 18.f);
+    EXPECT_EQ(a + b, res);
+    c = a;
+    c += b;
+    EXPECT_EQ(c, res);
+
+    // substraction
+    res = vec(10.f, 12.f, 18.f);
+    EXPECT_EQ(res - b, a);
+    c = res;
+    c -= b;
+    EXPECT_EQ(c, a);
+}
+
+TEST(vector3, basicoperationd)
+{
+    vecd a(5.0, 6.0, 9.0);
+    vecd b(5.0, 6.0, 9.0);
+
+    // multiplication
+    vecd res(25.0, 36.0, 81.0);
+    EXPECT_EQ(a * b, res);
+    vecd c = a;
+    c *= b;
+    EXPECT_EQ(c, res);
+
+    // division
+    EXPECT_EQ(res / b, a);
+    c = res;
+    c /= b;
+    EXPECT_EQ(c, a);
+
+    // addition
+    res = vecd(10.0, 12.0, 18.0);
+    EXPECT_EQ(a + b, res);
+    c = a;
+    c += b;
+    EXPECT_EQ(c, res);
+
+    // substraction
+    res = vecd(10.0, 12.0, 18.0);
+    EXPECT_EQ(res - b, a);
+    c = res;
+    c -= b;
+    EXPECT_EQ(c, a);
+}
+
+TEST(vector3, basicoperationi)
+{
+    veci a(5, 6, 9);
+    veci b(5, 6, 9);
+
+    // multiplication
+    veci res(25, 36, 81);
+    EXPECT_EQ(a * b, res);
+    veci c = a;
+    c *= b;
+    EXPECT_EQ(c, res);
+
+    // division
+    EXPECT_EQ(res / b, a);
+    c = res;
+    c /= b;
+    EXPECT_EQ(c, a);
+
+    // addition
+    res = veci(10, 12, 18);
+    EXPECT_EQ(a + b, res);
+    c = a;
+    c += b;
+    EXPECT_EQ(c, res);
+
+    // substraction
+    res = veci(10, 12, 18);
+    EXPECT_EQ(res - b, a);
+    c = res;
+    c -= b;
+    EXPECT_EQ(c, a);
+}
+
 TEST(vector3, normalizationf)
 {
     vec tonorm(5.5f, 9.3f, 11.7f);

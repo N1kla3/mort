@@ -162,6 +162,20 @@ namespace mort
             z -= rhs.z;
             return *this;
         }
+        constexpr Vector3<T> operator*=(const Vector3<T>& rhs) noexcept
+        {
+            x *= rhs.x;
+            y *= rhs.y;
+            z *= rhs.z;
+            return *this;
+        }
+        constexpr Vector3<T> operator/=(const Vector3<T>& rhs) noexcept
+        {
+            x /= rhs.x;
+            y /= rhs.y;
+            z /= rhs.z;
+            return *this;
+        }
 
         friend constexpr Vector3<T> operator+(const Vector3<T>& lhs, const Vector3<T>& rhs) noexcept
         {
@@ -177,6 +191,22 @@ namespace mort
             vec.x = lhs.x - rhs.x;
             vec.y = lhs.y - rhs.y;
             vec.z = lhs.z - rhs.z;
+            return vec;
+        }
+        friend constexpr Vector3<T> operator*(const Vector3<T>& lhs, const Vector3<T>& rhs) noexcept
+        {
+            Vector3<T> vec;
+            vec.x = lhs.x * rhs.x;
+            vec.y = lhs.y * rhs.y;
+            vec.z = lhs.z * rhs.z;
+            return vec;
+        }
+        friend constexpr Vector3<T> operator/(const Vector3<T>& lhs, const Vector3<T>& rhs) noexcept
+        {
+            Vector3<T> vec;
+            vec.x = lhs.x / rhs.x;
+            vec.y = lhs.y / rhs.y;
+            vec.z = lhs.z / rhs.z;
             return vec;
         }
 
