@@ -296,3 +296,72 @@ TEST(vector3, dotproducti)
     c = b.dot(b);
     EXPECT_EQ(static_cast<int32_t>(c), b.lenSqr());
 }
+
+TEST(vector3, crossproductf)
+{
+    vec a(10.f, 0.0f, 0.0f);
+    vec b(0.0f, 10.f, 0.0f);
+
+    EXPECT_EQ(a.cross(b), vec(0, 0, 100.f));
+    EXPECT_EQ(b.cross(a), vec(0, 0, -100.f));
+
+    EXPECT_EQ(a.cross(b).dot(b), 0.f);
+    EXPECT_EQ(a.cross(b).dot(a), 0.f);
+    EXPECT_EQ(b.cross(a).dot(b), 0.f);
+    EXPECT_EQ(b.cross(a).dot(a), 0.f);
+
+
+    EXPECT_EQ(vec::crossProduct(a, b), vec(0, 0, 100.f));
+    EXPECT_EQ(vec::crossProduct(b, a), vec(0, 0, -100.f));
+
+    EXPECT_EQ(vec::crossProduct(a, b).dot(b), 0.f);
+    EXPECT_EQ(vec::crossProduct(a, b).dot(a), 0.f);
+    EXPECT_EQ(vec::crossProduct(b, a).dot(b), 0.f);
+    EXPECT_EQ(vec::crossProduct(b, a).dot(a), 0.f);
+}
+
+TEST(vector3, crossproductd)
+{
+    vecd a(10.0, 0.0, 0.0);
+    vecd b(0.0, 10.0, 0.0);
+
+    EXPECT_EQ(a.cross(b), vecd(0, 0, 100.0));
+    EXPECT_EQ(b.cross(a), vecd(0, 0, -100.0));
+
+    EXPECT_EQ(a.cross(b).dot(b), 0.0);
+    EXPECT_EQ(a.cross(b).dot(a), 0.0);
+    EXPECT_EQ(b.cross(a).dot(b), 0.0);
+    EXPECT_EQ(b.cross(a).dot(a), 0.0);
+
+
+    EXPECT_EQ(vecd::crossProduct(a, b), vecd(0, 0, 100.0));
+    EXPECT_EQ(vecd::crossProduct(b, a), vecd(0, 0, -100.0));
+
+    EXPECT_EQ(vecd::crossProduct(a, b).dot(b), 0.0);
+    EXPECT_EQ(vecd::crossProduct(a, b).dot(a), 0.0);
+    EXPECT_EQ(vecd::crossProduct(b, a).dot(b), 0.0);
+    EXPECT_EQ(vecd::crossProduct(b, a).dot(a), 0.0);
+}
+
+TEST(vector3, crossproducti)
+{
+    veci a(10, 0, 0);
+    veci b(0, 10, 0);
+
+    EXPECT_EQ(a.cross(b), veci(0, 0, 100));
+    EXPECT_EQ(b.cross(a), veci(0, 0, -100));
+
+    EXPECT_EQ(a.cross(b).dot(b), 0);
+    EXPECT_EQ(a.cross(b).dot(a), 0);
+    EXPECT_EQ(b.cross(a).dot(b), 0);
+    EXPECT_EQ(b.cross(a).dot(a), 0);
+
+
+    EXPECT_EQ(veci::crossProduct(a, b), veci(0, 0, 100));
+    EXPECT_EQ(veci::crossProduct(b, a), veci(0, 0, -100));
+
+    EXPECT_EQ(veci::crossProduct(a, b).dot(b), 0);
+    EXPECT_EQ(veci::crossProduct(a, b).dot(a), 0);
+    EXPECT_EQ(veci::crossProduct(b, a).dot(b), 0);
+    EXPECT_EQ(veci::crossProduct(b, a).dot(a), 0);
+}

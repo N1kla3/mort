@@ -104,7 +104,14 @@ namespace mort
             return ((double) x * rhs.x) + ((double) y * rhs.y) + ((double) z * rhs.z);
         }
 
-        Vector3 cross(const Vector3& rhs) const {}
+        Vector3 cross(const Vector3& rhs) const
+        {
+            Vector3 res;
+            res.x = y * rhs.z - z * rhs.y;
+            res.y = z * rhs.x - x * rhs.z;
+            res.z = x * rhs.y - y * rhs.x;
+            return res;
+        }
 
         static float dotProduct(const Vector3<T>& lhs, const Vector3<T>& rhs);
         static Vector3 crossProduct(const Vector3& lhs, const Vector3& rhs);
@@ -217,5 +224,11 @@ namespace mort
     float Vector3<T>::dotProduct(const Vector3<T>& lhs, const Vector3<T>& rhs)
     {
         return lhs.dot(rhs);
+    }
+
+    template<number T>
+    Vector3<T> Vector3<T>::crossProduct(const Vector3& lhs, const Vector3& rhs)
+    {
+        return lhs.cross(rhs);
     }
 } // namespace mort
