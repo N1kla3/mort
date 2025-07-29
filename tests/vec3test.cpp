@@ -22,10 +22,12 @@ TEST(vector3, basicf)
     EXPECT_TRUE(sizeof(mort::Vector3<int32_t>) == 3 * sizeof(int32_t));
     EXPECT_TRUE(sizeof(mort::Vector3<double>) == 3 * sizeof(double));
 
-    veci b;
-    veci c;
+    veci b(5, 0, 5);
+    veci c(5, 5, 0);
     veci d = b + c;
-    EXPECT_EQ(d, veci(0));
+    EXPECT_EQ(d, veci(10, 5, 5));
+
+    EXPECT_EQ(veci(1, 1, 0), c / 5);
 }
 
 TEST(vector3, basicoperationf)
@@ -39,12 +41,21 @@ TEST(vector3, basicoperationf)
     vec c = a;
     c *= b;
     EXPECT_EQ(c, res);
+    EXPECT_EQ(vec(10.f, 12.f, 18.f), 2 * a);
+    EXPECT_EQ(vec(10.f, 12.f, 18.f), a * 2);
+    vec temp_m = a;
+    temp_m *= 2;
+    EXPECT_EQ(vec(10.f, 12.f, 18.f), temp_m);
 
     // division
     EXPECT_EQ(res / b, a);
     c = res;
     c /= b;
     EXPECT_EQ(c, a);
+    EXPECT_EQ(vec(2.5f, 3.f, 4.5f), c / 2);
+    vec temp_d = c;
+    temp_d /= 2;
+    EXPECT_EQ(vec(2.5f, 3.f, 4.5f), temp_d);
 
     // addition
     res = vec(10.f, 12.f, 18.f);
@@ -72,12 +83,21 @@ TEST(vector3, basicoperationd)
     vecd c = a;
     c *= b;
     EXPECT_EQ(c, res);
+    EXPECT_EQ(vecd(10.0, 12.0, 18.0), 2 * a);
+    EXPECT_EQ(vecd(10.0, 12.0, 18.0), a * 2);
+    vecd temp_m = a;
+    temp_m *= 2;
+    EXPECT_EQ(vecd(10.0, 12.0, 18.0), temp_m);
 
     // division
     EXPECT_EQ(res / b, a);
     c = res;
     c /= b;
     EXPECT_EQ(c, a);
+    EXPECT_EQ(vecd(2.5, 3.0, 4.5), c / 2);
+    vecd temp_d = c;
+    temp_d /= 2;
+    EXPECT_EQ(vecd(2.5f, 3.f, 4.5f), temp_d);
 
     // addition
     res = vecd(10.0, 12.0, 18.0);
@@ -105,12 +125,21 @@ TEST(vector3, basicoperationi)
     veci c = a;
     c *= b;
     EXPECT_EQ(c, res);
+    EXPECT_EQ(veci(10, 12, 18), 2 * a);
+    EXPECT_EQ(veci(10, 12, 18), a * 2);
+    veci temp_m = a;
+    temp_m *= 2;
+    EXPECT_EQ(veci(10, 12, 18), temp_m);
 
     // division
     EXPECT_EQ(res / b, a);
     c = res;
     c /= b;
     EXPECT_EQ(c, a);
+    EXPECT_EQ(veci(2, 3, 4), c / 2);
+    veci temp_d = c;
+    temp_d /= 2;
+    EXPECT_EQ(veci(2, 3, 4), temp_d);
 
     // addition
     res = veci(10, 12, 18);
@@ -130,18 +159,24 @@ TEST(vector3, basicoperationi)
 TEST(vector3, normalizationf)
 {
     vec tonorm(5.5f, 9.3f, 11.7f);
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().len(), 1.f));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().lenSqr(), 1.f));
     tonorm.normalize();
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.f));
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.f));
 
     // big number
     tonorm = vec(13424.34f, 54034.4545f, 910213.589f);
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().len(), 1.f));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().lenSqr(), 1.f));
     tonorm.normalize();
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.f));
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.f));
 
     // small number
     tonorm = vec(0.00134244f, 0.0005445f, 0.00009109f);
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().len(), 1.f));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().lenSqr(), 1.f));
     tonorm.normalize();
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.f));
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.f));
@@ -150,17 +185,23 @@ TEST(vector3, normalizationf)
 TEST(vector3, normalizationi)
 {
     veci tonorm(5, 9, 11);
+    EXPECT_EQ(tonorm.getNormalized().len(), 0);
+    EXPECT_EQ(tonorm.getNormalized().lenSqr(), 0);
     tonorm.normalize();
     EXPECT_EQ(tonorm.len(), 0);
     EXPECT_EQ(tonorm.lenSqr(), 0);
 
     // big number
     tonorm = veci(13424, 54034, 910213);
+    EXPECT_EQ(tonorm.getNormalized().len(), 0);
+    EXPECT_EQ(tonorm.getNormalized().lenSqr(), 0);
     tonorm.normalize();
     EXPECT_EQ(tonorm.len(), 0);
     EXPECT_EQ(tonorm.lenSqr(), 0);
 
     tonorm = veci(100, 0, 0);
+    EXPECT_EQ(tonorm.getNormalized().len(), 0);
+    EXPECT_EQ(tonorm.getNormalized().lenSqr(), 0);
     tonorm.normalize();
     EXPECT_EQ(tonorm.len(), 0);
     EXPECT_EQ(tonorm.lenSqr(), 0);
@@ -169,18 +210,24 @@ TEST(vector3, normalizationi)
 TEST(vector3, normalizationd)
 {
     vecd tonorm(5.5f, 9.3f, 11.7f);
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().len(), 1.0));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().lenSqr(), 1.0));
     tonorm.normalize();
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.0));
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.0));
 
     // big number
     tonorm = vecd(13424.34, 54034.4545, 910213.589);
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().len(), 1.0));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().lenSqr(), 1.0));
     tonorm.normalize();
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.0));
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.0));
 
     // small number
     tonorm = vecd(0.00134244, 0.0005445, 0.00009109);
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().len(), 1.0));
+    EXPECT_TRUE(mort::isNearlyEqual(tonorm.getNormalized().lenSqr(), 1.0));
     tonorm.normalize();
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.len(), 1.0));
     EXPECT_TRUE(mort::isNearlyEqual(tonorm.lenSqr(), 1.0));

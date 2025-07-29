@@ -99,6 +99,22 @@ namespace mort
             }
         }
 
+        constexpr Vector3 getNormalized() const
+        {
+            Vector3 result{0};
+            if constexpr (std::is_floating_point_v<type>)
+            {
+                type l = len();
+                if (!mort::isNearlyZero(l))
+                {
+                    result.x = x / l;
+                    result.y = y / l;
+                    result.z = z / l;
+                }
+            }
+            return result;
+        }
+
         float dot(const Vector3& rhs) const
         {
             return ((double) x * rhs.x) + ((double) y * rhs.y) + ((double) z * rhs.z);
@@ -155,6 +171,43 @@ namespace mort
             return !(lhs < rhs);
         }
 
+        // Scalar Begin
+        constexpr Vector3<T> operator*=(T rhs) noexcept
+        {
+            x *= rhs;
+            y *= rhs;
+            z *= rhs;
+            return *this;
+        }
+        constexpr Vector3<T> operator/=(T rhs) noexcept
+        {
+            x /= rhs;
+            y /= rhs;
+            z /= rhs;
+            return *this;
+        }
+
+        friend constexpr Vector3<T> operator*(T lhs, const Vector3<T>& rhs) noexcept
+        {
+            Vector3<T> vec(lhs);
+            vec *= rhs;
+            return vec;
+        }
+
+        constexpr Vector3<T> operator*(T lhs) noexcept
+        {
+            Vector3<T> vec(*this);
+            vec *= lhs;
+            return vec;
+        }
+        constexpr Vector3<T> operator/(T lhs) noexcept
+        {
+            Vector3<T> vec(*this);
+            vec /= lhs;
+            return vec;
+        }
+        // Scalar End
+
         constexpr Vector3<T> operator+=(const Vector3<T>& rhs) noexcept
         {
             x += rhs.x;
@@ -186,34 +239,26 @@ namespace mort
 
         friend constexpr Vector3<T> operator+(const Vector3<T>& lhs, const Vector3<T>& rhs) noexcept
         {
-            Vector3<T> vec;
-            vec.x = lhs.x + rhs.x;
-            vec.y = lhs.y + rhs.y;
-            vec.z = lhs.z + rhs.z;
+            Vector3<T> vec(lhs);
+            vec += rhs;
             return vec;
         }
         friend constexpr Vector3<T> operator-(const Vector3<T>& lhs, const Vector3<T>& rhs) noexcept
         {
-            Vector3<T> vec;
-            vec.x = lhs.x - rhs.x;
-            vec.y = lhs.y - rhs.y;
-            vec.z = lhs.z - rhs.z;
+            Vector3<T> vec(lhs);
+            vec -= rhs;
             return vec;
         }
         friend constexpr Vector3<T> operator*(const Vector3<T>& lhs, const Vector3<T>& rhs) noexcept
         {
-            Vector3<T> vec;
-            vec.x = lhs.x * rhs.x;
-            vec.y = lhs.y * rhs.y;
-            vec.z = lhs.z * rhs.z;
+            Vector3<T> vec(lhs);
+            vec *= rhs;
             return vec;
         }
         friend constexpr Vector3<T> operator/(const Vector3<T>& lhs, const Vector3<T>& rhs) noexcept
         {
-            Vector3<T> vec;
-            vec.x = lhs.x / rhs.x;
-            vec.y = lhs.y / rhs.y;
-            vec.z = lhs.z / rhs.z;
+            Vector3<T> vec(lhs);
+            vec /= rhs;
             return vec;
         }
 
