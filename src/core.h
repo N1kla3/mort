@@ -7,6 +7,9 @@
 
 namespace mort
 {
+    template<typename T>
+    concept number = std::is_arithmetic_v<T>;
+
     template<typename FloatingPoint>
         requires std::floating_point<FloatingPoint>
     [[nodiscard]] constexpr bool isNearlyZero(FloatingPoint numb,

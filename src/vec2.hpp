@@ -6,9 +6,6 @@
 
 namespace mort
 {
-    template<typename T>
-    concept number = std::is_arithmetic_v<T>;
-
     template<number T>
     struct Vector2
     {
