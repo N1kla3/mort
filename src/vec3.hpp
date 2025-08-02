@@ -101,17 +101,8 @@ namespace mort
 
         constexpr Vector3 getNormalized() const
         {
-            Vector3 result{0};
-            if constexpr (std::is_floating_point_v<type>)
-            {
-                type l = len();
-                if (!mort::isNearlyZero(l))
-                {
-                    result.x = x / l;
-                    result.y = y / l;
-                    result.z = z / l;
-                }
-            }
+            Vector3 result{*this};
+            result.normalize();
             return result;
         }
 
@@ -189,18 +180,16 @@ namespace mort
 
         friend constexpr Vector3<T> operator*(T lhs, const Vector3<T>& rhs) noexcept
         {
-            Vector3<T> vec(lhs);
-            vec *= rhs;
-            return vec;
+            return rhs * lhs;
         }
 
-        constexpr Vector3<T> operator*(T lhs) noexcept
+        constexpr Vector3<T> operator*(T lhs) const noexcept
         {
             Vector3<T> vec(*this);
             vec *= lhs;
             return vec;
         }
-        constexpr Vector3<T> operator/(T lhs) noexcept
+        constexpr Vector3<T> operator/(T lhs) const noexcept
         {
             Vector3<T> vec(*this);
             vec /= lhs;

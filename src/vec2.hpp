@@ -97,6 +97,13 @@ namespace mort
             }
         }
 
+        constexpr Vector2 getNormalized() const
+        {
+            Vector2 result{*this};
+            result.normalize();
+            return result;
+        }
+
         float dot(const Vector2& rhs) const
         {
             return ((double) x * rhs.x) + ((double) y * rhs.y);
@@ -138,6 +145,39 @@ namespace mort
         {
             return !(lhs < rhs);
         }
+        //
+        // Scalar Begin
+        constexpr Vector2<T> operator*=(T rhs) noexcept
+        {
+            x *= rhs;
+            y *= rhs;
+            return *this;
+        }
+        constexpr Vector2<T> operator/=(T rhs) noexcept
+        {
+            x /= rhs;
+            y /= rhs;
+            return *this;
+        }
+
+        friend constexpr Vector2<T> operator*(T lhs, const Vector2<T>& rhs) noexcept
+        {
+            return rhs * lhs;
+        }
+
+        constexpr Vector2<T> operator*(T lhs) const noexcept
+        {
+            Vector2<T> vec(*this);
+            vec *= lhs;
+            return vec;
+        }
+        constexpr Vector2<T> operator/(T lhs) const noexcept
+        {
+            Vector2<T> vec(*this);
+            vec /= lhs;
+            return vec;
+        }
+        // Scalar End
 
         constexpr Vector2<T> operator+=(const Vector2<T>& rhs) noexcept
         {
@@ -166,30 +206,26 @@ namespace mort
 
         friend constexpr Vector2<T> operator+(const Vector2<T>& lhs, const Vector2<T>& rhs) noexcept
         {
-            Vector2<T> vec;
-            vec.x = lhs.x + rhs.x;
-            vec.y = lhs.y + rhs.y;
+            Vector2<T> vec(lhs);
+            vec += rhs;
             return vec;
         }
         friend constexpr Vector2<T> operator-(const Vector2<T>& lhs, const Vector2<T>& rhs) noexcept
         {
-            Vector2<T> vec;
-            vec.x = lhs.x - rhs.x;
-            vec.y = lhs.y - rhs.y;
+            Vector2<T> vec(lhs);
+            vec -= rhs;
             return vec;
         }
         friend constexpr Vector2<T> operator*(const Vector2<T>& lhs, const Vector2<T>& rhs) noexcept
         {
-            Vector2<T> vec;
-            vec.x = lhs.x * rhs.x;
-            vec.y = lhs.y * rhs.y;
+            Vector2<T> vec(lhs);
+            vec *= rhs;
             return vec;
         }
         friend constexpr Vector2<T> operator/(const Vector2<T>& lhs, const Vector2<T>& rhs) noexcept
         {
-            Vector2<T> vec;
-            vec.x = lhs.x / rhs.x;
-            vec.y = lhs.y / rhs.y;
+            Vector2<T> vec(lhs);
+            vec /= rhs;
             return vec;
         }
 
