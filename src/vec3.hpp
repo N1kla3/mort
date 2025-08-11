@@ -160,14 +160,14 @@ namespace mort
         }
 
         // Scalar Begin
-        constexpr Vector3<T> operator*=(T rhs) noexcept
+        constexpr Vector3<T>& operator*=(T rhs) noexcept
         {
             x *= rhs;
             y *= rhs;
             z *= rhs;
             return *this;
         }
-        constexpr Vector3<T> operator/=(T rhs) noexcept
+        constexpr Vector3<T>& operator/=(T rhs) noexcept
         {
             x /= rhs;
             y /= rhs;
@@ -194,28 +194,28 @@ namespace mort
         }
         // Scalar End
 
-        constexpr Vector3<T> operator+=(const Vector3<T>& rhs) noexcept
+        constexpr Vector3<T>& operator+=(const Vector3<T>& rhs) noexcept
         {
             x += rhs.x;
             y += rhs.y;
             z += rhs.z;
             return *this;
         }
-        constexpr Vector3<T> operator-=(const Vector3<T>& rhs) noexcept
+        constexpr Vector3<T>& operator-=(const Vector3<T>& rhs) noexcept
         {
             x -= rhs.x;
             y -= rhs.y;
             z -= rhs.z;
             return *this;
         }
-        constexpr Vector3<T> operator*=(const Vector3<T>& rhs) noexcept
+        constexpr Vector3<T>& operator*=(const Vector3<T>& rhs) noexcept
         {
             x *= rhs.x;
             y *= rhs.y;
             z *= rhs.z;
             return *this;
         }
-        constexpr Vector3<T> operator/=(const Vector3<T>& rhs) noexcept
+        constexpr Vector3<T>& operator/=(const Vector3<T>& rhs) noexcept
         {
             x /= rhs.x;
             y /= rhs.y;
