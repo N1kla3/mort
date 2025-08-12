@@ -1,35 +1,68 @@
 #pragma once
 
 #include <algorithm>
+#include <cassert>
+#include "core.h"
+
 namespace mort
 {
-    template<typename T>
+
+    template<floating T>
     class Matrix3 final
     {
+    private:
+        constexpr static size_t arr_size = 9;
+
     public:
         Matrix3() {}
+        Matrix3(T i1, T i2, T i3, T j1, T j2, T j3, T k1, T k2, T k3)
+        {
+            i[0] = i1;
+            i[1] = i2;
+            i[2] = i3;
+
+            j[0] = j1;
+            j[1] = j2;
+            j[2] = j3;
+
+            k[0] = k1;
+            k[1] = k2;
+            k[2] = k3;
+        }
         Matrix3(const Matrix3& other)
         {
-            std::copy(other.arr, other.arr + 9, arr);
+            std::copy(other.arr, other.arr + arr_size, arr);
         }
         Matrix3(Matrix3&& other) noexcept
         {
-            std::copy(other.arr, other.arr + 9, arr);
+            std::copy(other.arr, other.arr + arr_size, arr);
         }
         Matrix3& operator=(const Matrix3& other)
         {
-            std::copy(other.arr, other.arr + 9, arr);
+            std::copy(other.arr, other.arr + arr_size, arr);
             return *this;
         }
         Matrix3& operator=(Matrix3&& other) noexcept
         {
-            std::copy(other.arr, other.arr + 9, arr);
+            std::copy(other.arr, other.arr + arr_size, arr);
             return *this;
         }
 
+        friend bool operator==(const Matrix3& lhs, const Matrix3& rhs)
+        {
+            bool res = true;
+            for (size_t i = 0; i < arr_size; i++)
+            {
+                res &= isNearlyEqual(lhs.arr[i], rhs.arr[i]);
+            }
+            return res;
+        }
+        friend bool operator!=(const Matrix3& lhs, const Matrix3& rhs)
+        {
+            return !(lhs == rhs);
+        }
 
-        // Methods//
-        // =======//
+
         friend Matrix3 operator*(const Matrix3& lhs, const Matrix3& rhs)
         {
             Matrix3 res = lhs;
@@ -56,6 +89,22 @@ namespace mort
             return *this;
         }
 
+
+        // Methods//
+        // =======//
+        T getVal(size_t row, size_t column) const
+        {
+            size_t index = (row * 3) + column;
+            assert(index < 9);
+            return arr[index];
+        }
+        T& getVal(size_t row, size_t column)
+        {
+            size_t index = (row * 3) + column;
+            assert(index < 9);
+            return arr[index];
+        }
+
     private:
         union
         {
@@ -65,7 +114,7 @@ namespace mort
                 T j[3];
                 T k[3];
             };
-            T arr[9];
+            T arr[arr_size];
         };
     };
 } // namespace mort
