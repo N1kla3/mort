@@ -1,7 +1,7 @@
 #include <cstdint>
 #include "core.h"
 #include "gtest/gtest.h"
-#include "matrix3.h"
+#include "matrix3.hpp"
 
 TEST(matrix3, base)
 {

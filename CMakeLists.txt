@@ -12,6 +12,9 @@ add_library(mort INTERFACE
         src/core.h
         src/vec2.hpp
         src/vec3.hpp
+        src/matrix3.hpp
+        src/matrix4.hpp
+        src/rotator2.hpp
 )
 set_target_properties(mort PROPERTIES LINKER_LANGUAGE CXX)
 
