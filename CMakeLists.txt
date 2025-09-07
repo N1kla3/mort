@@ -15,6 +15,7 @@ add_library(mort INTERFACE
         src/matrix3.hpp
         src/matrix4.hpp
         src/rotator2.hpp
+        src/quaternion.hpp
 )
 set_target_properties(mort PROPERTIES LINKER_LANGUAGE CXX)
 
